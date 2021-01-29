@@ -1,0 +1,12 @@
+*
+!README.md
+!Makefile
+!rsyncinclude
+!.gitignore
+!.gitmodules
+!.inputrc
+!.tmux.conf
+!.tmux.conky
+!.vimrc
+!.Xresources
+!.local

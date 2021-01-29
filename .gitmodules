@@ -1,0 +1,12 @@
+[submodule ".vim/autoload/vim-plug"]
+	path = .vim/autoload/vim-plug
+	url = https://github.com/junegunn/vim-plug
+[submodule ".tmux/autoload/tpm"]
+	path = .tmux/autoload/tpm
+	url = https://github.com/tmux-plugins/tpm.git
+[submodule ".local/share/consolefonts/tamzen-font"]
+	path = .local/share/consolefonts/tamzen-font
+	url = https://github.com/sunaku/tamzen-font.git
+[submodule ".local/share/fonts/JetBrainsMono"]
+	path = .local/share/fonts/JetBrainsMono
+	url = https://github.com/JetBrains/JetBrainsMono.git
