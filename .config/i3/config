@@ -170,16 +170,18 @@ bindsym $mod+w layout toggle stacking tabbed
 ## toggle mode splith/splitv
 bindsym $mod+e layout toggle split
 
-## toggle borders
-default_border pixel 1
-default_floating_border pixel 1
+## toggle border mode
+floating_minimum_size 75 x 50
+floating_maximum_size -1 x -1
+default_border pixel 5
+default_floating_border pixel 5
 bindsym $mod+s border toggle
 
 ## mode sticky
 floating_modifier $mod
 bindsym $mod+semicolon floating toggle
-bindsym $mod+apostrophe focus mode_toggle
-bindsym $mod+$shift+semicolon sticky toggle
+bindsym $mod+$shift+semicolon focus mode_toggle
+bindsym $mod+apostrophe sticky toggle
 
 ## mode resize
 mode "resize" {
@@ -217,10 +219,10 @@ set_from_resource $color15 color15
 set_from_resource $background background
 set_from_resource $foreground foreground
 client.background $background
-client.focused          $color1 $background $color1 $color1 $color1
-client.unfocused        $color8 $background $color8 $color8 $color8
+client.focused          $color2 $background $color2 $color2 $color2
 client.focused_inactive $color3 $background $color3 $color3 $color3
-client.urgent           $color4 $background $color4 $color4 $color4
+client.unfocused        $color8 $background $color8 $color8 $color8
+client.urgent           $color6 $background $color6 $color6 $color6
 client.placeholder      $color5 $background $color5 $color5 $color5
 
 ## font
@@ -239,11 +241,11 @@ bar {
        background $background
        statusline $foreground
        separator  $color8
-       focused_workspace  $color7 $color1 $color7
-       active_workspace   $color2 $color2 $color7
+       focused_workspace  $color7 $color2 $color7
+       active_workspace   $color3 $color3 $color7
        inactive_workspace $color8 $color8 $color7
-       urgent_workspace   $color4 $color4 $color7
-       binding_mode       $color6 $color6 $color7
+       urgent_workspace   $color6 $color6 $color7
+       binding_mode       $color7 $color7 $color7
    }
 }
 bindsym $alt+space bar mode toggle
