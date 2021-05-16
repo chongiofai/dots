@@ -1,0 +1,305 @@
+# ~/i3/config
+# encoding=utf-8
+
+# alias
+set $mod Mod4
+set $esc Escape
+set $enter Return
+set $tab Tab
+set $ctrl Control
+set $shift Shift
+set $alt Mod1
+
+set $left h
+set $down j
+set $up k
+set $right l
+set $next n
+set $previous p
+set $recent b
+
+set $mb1 button1  # left mouse button
+set $mb2 button2  # middle mouse button
+set $mb3 button3  # right mouse button
+set $mb4 button4  # scroll wheel up
+set $mb5 button5  # scroll wheel down
+set $mb6 button6  # scroll wheel right
+set $mb7 button7  # scroll wheel left
+
+# output
+
+## define output
+set $op0 primary
+set $op1 nonprimary
+
+## foucs
+bindsym $mod+minus focus output $op0
+bindsym $mod+equal focus output $op1
+
+## move workspace
+# bindsym $mod+$shift+$left move workspace to output left
+# bindsym $mod+$shift+$down move workspace to output down
+# bindsym $mod+$shift+$up move workspace to output up
+# bindsym $mod+$shift+$right move workspace to output right
+# bindsym $mod+$shift+Left move workspace to output left
+# bindsym $mod+$shift+Down move workspace to output down
+# bindsym $mod+$shift+Up move workspace to output up
+# bindsym $mod+$shift+Right move workspace to output right
+## move container
+bindsym $mod+$shift+$left move container to output left
+bindsym $mod+$shift+$down move container to output down
+bindsym $mod+$shift+$up move container to output up
+bindsym $mod+$shift+$right move container to output right
+bindsym $mod+$shift+Left move container to output left
+bindsym $mod+$shift+Down move container to output down
+bindsym $mod+$shift+Up move container to output up
+bindsym $mod+$shift+Right move container to output right
+
+# workspace
+
+## define workspace
+set $ws0 "0"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
+### rename workspace
+# bindsym $mod+$shift+r exec i3-input -F 'rename workspace to "%s"' -P 'New name for this workspace: '
+
+## switch workspace
+workspace_auto_back_and_forth yes
+bindsym $mod+$recent workspace back_and_forth
+bindsym $mod+$next workspace next
+bindsym $mod+$previous workspace prev
+
+### bind workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws0
+
+## move container to workspace
+bindsym $mod+$ctrl+$next move container to workspace next
+bindsym $mod+$ctrl+$previous move container to workspace prev
+bindsym $mod+$ctrl+1 move container to workspace number $ws1
+bindsym $mod+$ctrl+2 move container to workspace number $ws2
+bindsym $mod+$ctrl+3 move container to workspace number $ws3
+bindsym $mod+$ctrl+4 move container to workspace number $ws4
+bindsym $mod+$ctrl+5 move container to workspace number $ws5
+bindsym $mod+$ctrl+6 move container to workspace number $ws6
+bindsym $mod+$ctrl+7 move container to workspace number $ws7
+bindsym $mod+$ctrl+8 move container to workspace number $ws8
+bindsym $mod+$ctrl+9 move container to workspace number $ws9
+bindsym $mod+$ctrl+0 move container to workspace number $ws0
+## move window to workspace
+# bindsym $mod+$ctrl+$next move window to workspace next
+# bindsym $mod+$ctrl+$previous move window to workspace prev
+# bindsym $mod+$ctrl+1 move window to workspace number $ws1
+# bindsym $mod+$ctrl+2 move window to workspace number $ws2
+# bindsym $mod+$ctrl+3 move window to workspace number $ws3
+# bindsym $mod+$ctrl+4 move window to workspace number $ws4
+# bindsym $mod+$ctrl+5 move window to workspace number $ws5
+# bindsym $mod+$ctrl+6 move window to workspace number $ws6
+# bindsym $mod+$ctrl+7 move window to workspace number $ws7
+# bindsym $mod+$ctrl+8 move window to workspace number $ws8
+# bindsym $mod+$ctrl+9 move window to workspace number $ws9
+# bindsym $mod+$ctrl+0 move window to workspace number $ws0
+
+# container
+
+## parent
+bindsym $mod+a focus parent
+
+## child
+bindsym $mod+Shift+a focus child
+
+## split horizontal
+bindsym $mod+v split h
+
+## split vertical
+bindsym $mod+$shift+v split v
+
+# window
+
+focus_follows_mouse no
+
+## focus windows
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+## move focused window
+bindsym $mod+$ctrl+$left move left
+bindsym $mod+$ctrl+$down move down
+bindsym $mod+$ctrl+$up move up
+bindsym $mod+$ctrl+$right move right
+bindsym $mod+$ctrl+Left move left
+bindsym $mod+$ctrl+Down move down
+bindsym $mod+$ctrl+Up move up
+bindsym $mod+$ctrl+Right move right
+
+## kill focused window
+bindsym $mod+$shift+q kill
+bindsym $alt+F4 kill
+
+# mode
+
+## toggle mode fullscreen
+bindsym $mod+f fullscreen toggle
+
+## toggle mode tabbed/stacking
+bindsym $mod+w layout toggle stacking tabbed
+
+## toggle mode splith/splitv
+bindsym $mod+e layout toggle split
+
+## toggle borders
+default_border pixel 1
+default_floating_border pixel 1
+bindsym $mod+s border toggle
+
+## mode sticky
+floating_modifier $mod
+bindsym $mod+semicolon floating toggle
+bindsym $mod+apostrophe focus mode_toggle
+bindsym $mod+$shift+semicolon sticky toggle
+
+## mode resize
+mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+    bindsym $enter mode "default"  # back
+    bindsym $esc mode "default"  # back
+}
+bindsym $mod+z mode "resize"
+
+# display
+
+set_from_resource $color0 color0
+set_from_resource $color1 color1
+set_from_resource $color2 color2
+set_from_resource $color3 color3
+set_from_resource $color4 color4
+set_from_resource $color5 color5
+set_from_resource $color6 color6
+set_from_resource $color7 color7
+set_from_resource $color8 color8
+set_from_resource $color9 color9
+set_from_resource $color10 color10
+set_from_resource $color11 color11
+set_from_resource $color12 color12
+set_from_resource $color13 color13
+set_from_resource $color14 color14
+set_from_resource $color15 color15
+set_from_resource $background background
+set_from_resource $foreground foreground
+client.background $background
+client.focused          $color1 $background $color1 $color1 $color1
+client.unfocused        $color8 $background $color8 $color8 $color8
+client.focused_inactive $color3 $background $color3 $color3 $color3
+client.urgent           $color4 $background $color4 $color4 $color4
+client.placeholder      $color5 $background $color5 $color5 $color5
+
+## font
+font pango:JetBrains Mono, WenQuanYi Micro Hei Mono, Symboa
+
+## display
+
+### bar
+set $refresh_i3status killall -SIGUSR1 i3status
+bar {
+    position bottom
+    mode hide
+    modifier none
+    status_command i3status
+    colors {
+       background $background
+       statusline $foreground
+       separator  $color8
+       focused_workspace  $color7 $color1 $color7
+       active_workspace   $color2 $color2 $color7
+       inactive_workspace $color8 $color8 $color7
+       urgent_workspace   $color4 $color4 $color7
+       binding_mode       $color6 $color6 $color7
+   }
+}
+bindsym $alt+space bar mode toggle
+
+# control
+
+## lock
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+bindsym $mod+$esc exec i3lock -c '#000000'
+
+## reload i3
+bindsym $mod+c reload
+
+## restart i3
+bindsym $mod+$shift+c restart
+
+## exit i3
+bindsym $mod+$shift+$esc exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# application
+
+## background
+exec --no-startup-id sh ~/.fehbg
+# exec --no-startup-id feh --no-fehbg -bg-fill '~/Pictures/wallpaper.jpg'
+exec --no-startup-id nm-applet
+exec --no-startup-id ibus-daemon --xim -d -r
+exec --no-startup-id pulseaudio --check && pulseaudio -D
+exec --no-startup-id blueman-applet
+
+## call
+
+### terminal
+# bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+$enter exec rxvt-unicode
+
+### menu
+# bindsym $mod+d exec --no-startup-id dmenu_run
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec "rofi -modi drun,run -show drun"
+
+### window switcher
+bindsym $mod+$tab exec rofi -show window
+
+### screenshot
+bindsym Print exec --no-startup-id spectacle
+bindsym $shift+Print exec --no-startup-id spectacle -b
+bindsym $ctrl+Print exec --no-startup-id spectacle -r
+bindsym $shift+$ctrl+Print exec --no-startup-id spectacle -r -b -n
+
+#### audio
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+
+#### screen
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+
