@@ -1,0 +1,12 @@
+# encoding=utf-8
+
+conky.config = {
+    out_to_x = false,
+    out_to_console = true,
+    total_run_times = 1,
+    use_xft = true,
+    font = "JetBrains Mono:style=Regular:size=14",
+    cpu_avg_samples = 2,
+    net_avg_samples = 3,
+};
+conky.text = [[${cpu}%|${memeasyfree}|${addrs eth0}|${addrs wlan0}|${kernel}]]
