@@ -27,20 +27,52 @@ function! InitVim()
 
 endfunction
 
+" general
+"
 set nocompatible
-let mapleader=','
+nnoremap " ,
+vnoremap " ,
+nnoremap , ;
+vnoremap , ;
+let mapleader=';'
+syntax on
+set undofile
 call InitVim()
+set mouse=i
+set t_Co=256
+set encoding=utf-8
+set autoindent
+set tabstop=4
+set linespace=0
+set list
+set listchars=tab:»\ ,trail:¨
+" set listchars=tab:⇒\ ,trail:→
+set showmatch
+set cursorline
+set cursorcolumn
+set nowrap
+set number
+set showcmd
+set showmode
+set ruler
+set rulerformat=%=0x%B\ %c,%l/%L\ %V\ %P
+set laststatus=2
+set statusline=%y%{LinterStatus()}%m%r%h%w%q%k%.20F%{GitBranchStatus()}%=0x%B\ %c,%l/%L\ %V\ %P
+set foldenable
+set foldmethod=indent
 
 " plugin
 "
 if !filereadable(expand('~/.vim/autoload/plug.vim'))
-    " exec '!curl -fLo ' . base_dir . 'autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    exec 'git clone https://github.com/junegunn/vim-plug/master/plug.vim.git ' . base_dir . 'autoload/vim-plug'
+    " exec '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    exec 'git clone https://github.com/junegunn/vim-plug/master/plug.vim.git ~/.vim/autoload/vim-plug'
 else
     call plug#begin(expand('~/.vim/plugins'))
     Plug 'flazz/vim-colorschemes'
     Plug 'itchyny/vim-gitbranch'
     Plug 'mbbill/undotree'
+    Plug 'xolox/vim-misc'
+    Plug 'xolox/vim-easytags'
     Plug 'preservim/tagbar'
     Plug 'MattesGroeger/vim-bookmarks'
     Plug 'othree/eregex.vim'
@@ -73,6 +105,11 @@ else
     endfunction
 endif
 
+if ExistPlugin('easytags')
+    let g:easytags_cmd='ctags-universal'
+    let g:easytags_file='~/.vim/tags'
+endif
+
 if ExistPlugin('tagbar')
     nnoremap <Leader>tt :TagbarToggle<CR>
 endif
@@ -99,6 +136,10 @@ if ExistPlugin('vim-bookmarks')
     let g:bookmark_highlight_lines=1
     let g:bookmark_show_toggle_warning=0
     let g:bookmark_auto_save_file=expand('~/.vim/bookmarks')
+    highlight BookmarkSign term=bold ctermfg=white ctermbg=blue
+    highlight BookmarkLine term=bold ctermfg=white ctermbg=blue
+    highlight BookmarkAnnotationSign term=bold ctermfg=white ctermbg=green
+    highlight BookmarkAnnotationLine term=bold ctermfg=white ctermbg=green
 endif
 
 if ExistPlugin('ack.vim')
@@ -112,10 +153,11 @@ if ExistPlugin('ack.vim')
 endif
 
 if ExistPlugin('fzf.vim')
+    let g:fzf_tags_command='ctags-universal -R'
+
     let g:fzf_command_prefix='Fzf'
-    nnoremap <Leader>zc :FzfCommands<CR>
-    nnoremap <Leader>zf :FzfRg<CR>
-    nnoremap <Leader>zt :FzfTags<CR>
+    nnoremap <Leader>m :FzfCommands<CR>
+    nnoremap <Leader>a :FzfRg<CR>
 endif
 
 if ExistPlugin('vim-autoformat')
@@ -142,16 +184,14 @@ if ExistPlugin('ale')
                     \)
     endfunction
 
-    highlight ALEWarningSign ctermfg=11 ctermbg=15 guifg=#ED6237 guibg=#F5F5F5
-    highlight ALEErrorSign ctermfg=9 ctermbg=15 guifg=#C30500 guibg=#F5F5F5
     let g:ale_enabled=1
-    let g:ale_set_highlights=1
+    let g:ale_set_signs=1
     let g:ale_sign_column_always=1
     let g:ale_sign_error='E'
     let g:ale_sign_warning='W'
     let g:ale_echo_msg_error_str='E'
     let g:ale_echo_msg_warning_str='W'
-    let g:ale_echo_msg_format='[%severity%][%linter%]%s: %code%'
+    let g:ale_echo_msg_format='[%severity%][%linter%]%code% %s'
     let g:ale_set_loclist=1
     let g:ale_set_quickfix=1
     let g:ale_open_list=0
@@ -168,9 +208,21 @@ if ExistPlugin('ale')
                 \ 'go': ['gofmt', 'golint', 'govet'],
                 \ 'python': ['flake8', 'mypy'],
                 \ 'yaml': ['yamllint']}
-    nnoremap <Leader>al :ALEToggle<CR>
-    nnoremap <Leader>aj :ALENextWrap<CR>
-    nnoremap <Leader>ak :ALEPreviousWrap<CR>
+    let g:ale_python_flake8_options="-m flake8 --ignore=E501"
+
+    let g:ale_set_highlights=0
+    highlight ALEError term=bold ctermfg=white ctermbg=red
+    highlight ALEErrorLine term=bold ctermfg=white ctermbg=red
+    highlight ALEErrorSign term=bold ctermfg=white ctermbg=red
+    highlight ALEErrorSignLineNr term=bold ctermfg=white ctermbg=red
+    highlight ALEWarning term=bold ctermfg=white ctermbg=yellow
+    highlight ALEWarningLine term=bold ctermfg=white ctermbg=yellow
+    highlight ALEWarningSign term=bold ctermfg=white ctermbg=yellow
+    highlight ALEWarningSignLineNr term=bold ctermfg=white ctermbg=yellow
+
+    nnoremap <Leader>l :ALEToggle<CR>
+    nnoremap <Leader>j :ALENextWrap<CR>
+    nnoremap <Leader>k :ALEPreviousWrap<CR>
 else
     function! LinterStatus() abort
         return '[!]'
@@ -187,29 +239,3 @@ if ExistPlugin('nerdcommenter')
     let g:NERDSpaceDelims = 1
 endif
 
-" general
-"
-set mouse=i
-set undofile
-syntax on
-set t_Co=256
-set encoding=utf-8
-set autoindent
-set tabstop=4
-set linespace=0
-set list
-set listchars=tab:»\ ,trail:¨
-" set listchars=tab:⇒\ ,trail:→
-set showmatch
-set cursorline
-set cursorcolumn
-set nowrap
-set number
-set showcmd
-set showmode
-set ruler
-set rulerformat=%=0x%B\ %c,%l/%L\ %V\ %P
-set laststatus=2
-set statusline=%y%{LinterStatus()}%m%r%h%w%q%k%.20F%{GitBranchStatus()}%=0x%B\ %c,%l/%L\ %V\ %P
-set foldenable
-set foldmethod=indent
