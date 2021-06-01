@@ -6,7 +6,5 @@ conky.config = {
     total_run_times = 1,
     use_xft = true,
     font = "JetBrains Mono:style=Regular:size=14",
-    cpu_avg_samples = 2,
-    net_avg_samples = 3,
 };
 conky.text = [[${cpu}%|${memeasyfree}|${addrs eth0}|${addrs wlan0}|${kernel}]]

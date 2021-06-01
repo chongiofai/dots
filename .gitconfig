@@ -1,6 +1,15 @@
 [core]
     editor = vim
 
+[diff]
+    tool = vimdiff
+
+[merge]
+    tool = vimdiff
+
+# [difftool "vimdiff"]
+# [mergetool "vimdiff"]
+
 [color]
     diff = auto
     ui = true
