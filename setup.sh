@@ -101,11 +101,11 @@ xrdb(){
 
 fonts(){
     echo "donwload JetBainsMono[yn]"
-    confirm git clone https://github.com/JetBrains/JetBrainsMono.git ./tmp/JetBrainsMono && rsync -rac -ivv "tmp/JetBrainsMono/fonts/ttf/*.ttf" "$HOME/.local/share/fonts/JetBrainsMono/"
+    confirm 'git clone https://github.com/JetBrains/JetBrainsMono.git ./tmp/JetBrainsMono && rsync -rac -ivv "tmp/JetBrainsMono/fonts/ttf/*.ttf" "$HOME/.local/share/fonts/JetBrainsMono/"'
     echo "donwload WenQuanYi Micro[yn]"
-    confirm sudo apt install -y fonts-wqy-microhei
+    confirm 'sudo apt install -y fonts-wqy-microhei'
     echo "donwload Symbola[yn]"
-    confirm curl -o ./tmp/symbola.zip https://fontlibrary.org/assets/downloads/symbola/cf81aeb303c13ce765877d31571dc5c7/symbola.zip && unzip -d .local/share/fonts/symbola ./tmp/symbola.zip && rsync -rac -ivv "tmp/symbola/*.ttf" "$HOME/.local/share/fonts/symbola/"
+    confirm 'curl --create-dirs  -o ./tmp/symbola.zip https://fontlibrary.org/assets/downloads/symbola/cf81aeb303c13ce765877d31571dc5c7/symbola.zip && unzip -d ./tmp/symbola ./tmp/symbola.zip && rsync -rac -ivv "tmp/symbola/*.ttf" "$HOME/.local/share/fonts/symbola/"'
 }
 
 console-fonts(){
