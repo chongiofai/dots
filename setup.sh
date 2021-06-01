@@ -1,4 +1,4 @@
-#!bash
+#!/bin/bash
 # encoding=utf-8
 
 # set -x
@@ -114,35 +114,15 @@ console-fonts(){
 }
 
 rm -rf $BASE_DIR/tmp
+[ -z $* ] && echo "setup.sh [bak|dots|fzf|pyenv|vim-plugin|tmux-plugin|fonts|consolefonts|xrdb]"
 for cmd in $*
 do
     case $cmd in
-        "tmux-plugin")
-            tmux-plugin
-            ;;
-        "vim-plugin")
-            vim-plugin
-            ;;
-        "pyenv")
-            pyenv
-            ;;
-        "fzf")
-            fzf
-            ;;
-        "fonts")
-            fonts
-            ;;
-        "xrdb")
-            xrdb
-            ;;
-        "dots")
-            dots
-            ;;
-        "bak")
-            bak
+        "help")
+            echo "setup.sh [bak|dots|fzf|pyenv|vim-plugin|tmux-plugin|fonts|consolefonts|xrdb]"
             ;;
         *)
-            echo "setup.sh [bak|dots|fzf|pyenv|vim-plugin|tmux-plugin|fonts|consolefonts|xrdb]"
+            $cmd
             ;;
     esac
 done
