@@ -6,39 +6,38 @@
 
 BASE_DIR="$(cd "$(dirname "${BASE_SOURCE[0]}")" 2>&1 && pwd)"
 
-confirm(){
-    while true
-    do
+confirm() {
+    while true; do
         read yn
         case $yn in
-            "y"|"Y")
-                $*
-                break
-                ;;
-            "n"|"N")
-                echo "cancel"
-                break
-                ;;
-            *)
-                echo "[yn]"
-                ;;
+        "y" | "Y")
+            $*
+            break
+            ;;
+        "n" | "N")
+            echo "cancel"
+            break
+            ;;
+        *)
+            echo "[yn]"
+            ;;
         esac
     done
 }
 
-bak(){
+bak() {
     rsync -n -rac -i -v \
         --include=".[^.]*" \
         --ignore-non-existing \
         "$HOME/" "$BASE_DIR/"
     echo "rsync[yn]"
     confirm rsync -rac -i -vv \
-            --include=".[^.]*" \
-            --ignore-non-existing \
-            "$HOME/" "$BASE_DIR/"
+        --include=".[^.]*" \
+        --ignore-non-existing \
+        "$HOME/" "$BASE_DIR/"
 }
 
-dots(){
+dots() {
     rsync -n -rac -i -v \
         --exclude-from="$BASE_DIR/.gitignore" \
         --exclude=".git" \
@@ -56,7 +55,7 @@ dots(){
         "$BASE_DIR/" "$HOME/"
 }
 
-tmux-plugin(){
+tmux-plugin() {
     TPM_PATH="$HOME/.tmux/plugins/tpm"
     if [[ -d "$TPM_PATH" ]]; then
         echo "update tmux plugin[yn]"
@@ -67,7 +66,7 @@ tmux-plugin(){
     fi
 }
 
-vim_plugin(){
+vim_plugin() {
     PLUGVIM_PATH="$HOME/.vim/autoload/plug.vim"
     if [[ -f "$PLUGVIM_PATH" ]]; then
         echo "update vim plugin[yn]"
@@ -78,7 +77,7 @@ vim_plugin(){
     fi
 }
 
-fzf(){
+fzf() {
     FZF_PATH="$HOME/.fzf"
     if [[ ! -d "$FZF_PATH" ]]; then
         echo "download fzf[yn]"
@@ -86,7 +85,7 @@ fzf(){
     fi
 }
 
-pyenv(){
+pyenv() {
     PYENV_PATH="$HOME/.fzf"
     if [[ ! -d "$PYENV_PATH" ]]; then
         echo "install pyenv"
@@ -94,12 +93,12 @@ pyenv(){
     fi
 }
 
-xrdb(){
+xrdb() {
     echo "merge xrdb[yn]"
     confirm xrdb -merge "$HOME/.Xresources"
 }
 
-fonts(){
+fonts() {
     echo "donwload JetBainsMono[yn]"
     confirm 'git clone https://github.com/JetBrains/JetBrainsMono.git ./tmp/JetBrainsMono && rsync -rac -ivv "tmp/JetBrainsMono/fonts/ttf/*.ttf" "$HOME/.local/share/fonts/JetBrainsMono/"'
     echo "donwload WenQuanYi Micro[yn]"
@@ -108,22 +107,21 @@ fonts(){
     confirm 'curl --create-dirs  -o ./tmp/symbola.zip https://fontlibrary.org/assets/downloads/symbola/cf81aeb303c13ce765877d31571dc5c7/symbola.zip && unzip -d ./tmp/symbola ./tmp/symbola.zip && rsync -rac -ivv "tmp/symbola/*.ttf" "$HOME/.local/share/fonts/symbola/"'
 }
 
-console-fonts(){
+console-fonts() {
     echo "download tamzen-font[yn]"
     confirm git clone https://github.com/sunaku/tamzen-font.git ./tmp/tamzen-font && rsync -rac -ivv "tmp/tamzen-font/psf/*.psf" "$HOME/.local/share/"
 }
 
 rm -rf $BASE_DIR/tmp
 [ -z $* ] && echo "setup.sh [bak|dots|fzf|pyenv|vim-plugin|tmux-plugin|fonts|consolefonts|xrdb]"
-for cmd in $*
-do
+for cmd in $*; do
     case $cmd in
-        "help")
-            echo "setup.sh [bak|dots|fzf|pyenv|vim-plugin|tmux-plugin|fonts|consolefonts|xrdb]"
-            ;;
-        *)
-            $cmd
-            ;;
+    "help")
+        echo "setup.sh [bak|dots|fzf|pyenv|vim-plugin|tmux-plugin|fonts|consolefonts|xrdb]"
+        ;;
+    *)
+        $cmd
+        ;;
     esac
 done
 
