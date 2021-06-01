@@ -33,8 +33,8 @@ set $op0 primary
 set $op1 nonprimary
 
 ## foucs
-bindsym $mod+minus focus output $op0
-bindsym $mod+equal focus output $op1
+# bindsym $mod+minus focus output $op0
+# bindsym $mod+equal focus output $op1
 
 ## move workspace
 # bindsym $mod+$shift+$left move workspace to output left
@@ -58,7 +58,6 @@ bindsym $mod+$shift+Right move container to output right
 # workspace
 
 ## define workspace
-set $ws0 "0"
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -68,12 +67,11 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-
-### rename workspace
-# bindsym $mod+$shift+r exec i3-input -F 'rename workspace to "%s"' -P 'New name for this workspace: '
+set $ws10 "10"
+set $ws11 "11"
+set $ws12 "12"
 
 ## switch workspace
-workspace_auto_back_and_forth yes
 bindsym $mod+$recent workspace back_and_forth
 bindsym $mod+$next workspace next
 bindsym $mod+$previous workspace prev
@@ -88,7 +86,9 @@ bindsym $mod+6 workspace number $ws6
 bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
-bindsym $mod+0 workspace number $ws0
+bindsym $mod+0 workspace number $ws10
+bindsym $mod+minus workspace number $ws11
+bindsym $mod+equal workspace number $ws12
 
 ## move container to workspace
 bindsym $mod+$ctrl+$next move container to workspace next
@@ -102,7 +102,9 @@ bindsym $mod+$ctrl+6 move container to workspace number $ws6
 bindsym $mod+$ctrl+7 move container to workspace number $ws7
 bindsym $mod+$ctrl+8 move container to workspace number $ws8
 bindsym $mod+$ctrl+9 move container to workspace number $ws9
-bindsym $mod+$ctrl+0 move container to workspace number $ws0
+bindsym $mod+$ctrl+0 move container to workspace number $ws10
+bindsym $mod+$ctrl+minus move container to workspace number $ws11
+bindsym $mod+$ctrl+equal move container to workspace number $ws12
 ## move window to workspace
 # bindsym $mod+$ctrl+$next move window to workspace next
 # bindsym $mod+$ctrl+$previous move window to workspace prev
@@ -115,7 +117,9 @@ bindsym $mod+$ctrl+0 move container to workspace number $ws0
 # bindsym $mod+$ctrl+7 move window to workspace number $ws7
 # bindsym $mod+$ctrl+8 move window to workspace number $ws8
 # bindsym $mod+$ctrl+9 move window to workspace number $ws9
-# bindsym $mod+$ctrl+0 move window to workspace number $ws0
+# bindsym $mod+$ctrl+10 move window to workspace number $ws10
+# bindsym $mod+$ctrl+minus move window to workspace number $ws11
+# bindsym $mod+$ctrl+equal move window to workspace number $ws12
 
 # container
 
@@ -225,18 +229,21 @@ client.unfocused        $color8 $background $color8 $color8 $color8
 client.urgent           $color6 $background $color6 $color6 $color6
 client.placeholder      $color5 $background $color5 $color5 $color5
 
-## font
-font pango:JetBrains Mono, WenQuanYi Micro Hei Mono, Symboa
 
 ## display
+
+### font
+font pango:JetBrains Mono, WenQuanYi Micro Hei Mono, Symboa
 
 ### bar
 set $refresh_i3status killall -SIGUSR1 i3status
 bar {
     position bottom
-    mode hide
+    # mode hide
     modifier none
     status_command i3status
+    separator_symbol "|"
+    font pango:JetBrains Mono, WenQuanYi Micro Hei Mono, Symboa
     colors {
        background $background
        statusline $foreground
@@ -257,10 +264,10 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 bindsym $mod+$esc exec i3lock -c '#000000'
 
 ## reload i3
-bindsym $mod+c reload
+bindsym $mod+r reload
 
 ## restart i3
-bindsym $mod+$shift+c restart
+bindsym $mod+$shift+r restart
 
 ## exit i3
 bindsym $mod+$shift+$esc exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
@@ -271,9 +278,10 @@ bindsym $mod+$shift+$esc exec "i3-nagbar -t warning -m 'You pressed the exit sho
 exec --no-startup-id sh ~/.fehbg
 # exec --no-startup-id feh --no-fehbg -bg-fill '~/Pictures/wallpaper.jpg'
 exec --no-startup-id nm-applet
-exec --no-startup-id ibus-daemon --xim -d -r
-exec --no-startup-id pulseaudio --check && pulseaudio -D
 exec --no-startup-id blueman-applet
+exec --no-startup-id ibus-daemon --xim -d -r
+
+exec --no-startup-id pulseaudio --check && pulseaudio -D
 
 ## call
 

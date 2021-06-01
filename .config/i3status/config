@@ -1,0 +1,66 @@
+# ~/.config/i3status/config
+
+general {
+    output_format = i3bar
+    interval = 1
+    colors = true
+    color_good = "#93d493"
+    color_bad = "#ff6973"
+    color_degraded = "#ffd256"
+}
+
+order += "ethernet eth0"
+order += "wireless wlan0"
+order += "wireless wwan0"
+order += "cpu_usage"
+order += "memory"
+order += "volume master"
+order += "battery 0"
+order += "tztime local"
+
+wireless wwan0 {
+        format_up = "wwan0 %essid %ip(%quality)"
+        format_down = ""
+}
+
+wireless wlan0 {
+        format_up = "wlan0 %essid %ip(%quality)"
+        format_down = ""
+}
+
+ethernet eth0 {
+        format_up = "eth0 %ip(%speed)"
+        format_down = ""
+}
+
+battery 0 {
+        format = "%status %percentage"
+        format_down = ""
+        status_unk = "🔋"
+        status_chr = "⚡"
+        status_bat = "🔌"
+        status_full = "💡"
+        threshold_type = percentage
+        last_full_capacity = true
+        integer_battery_capacity = true
+        low_threshold = 30
+        path = "/sys/class/power_supply/BAT0/uevent"
+}
+
+tztime local {
+        format = "%Y-%m-%d %H:%M:%S"
+}
+
+cpu_usage {
+        format = "CPU %usage"
+}
+
+memory {
+    format= "RAM %percentage_used"
+}
+
+volume master {
+        format = "🔊 %volume"
+        format_muted = "🔈"
+        device = "pulse"
+}

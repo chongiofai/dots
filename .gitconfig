@@ -1,17 +1,18 @@
 [core]
-	editor = vim
+    editor = vim
 
 [color]
-	diff = auto
-	ui = true
+    diff = auto
+    ui = true
 
 [alias]
-	add = add --verbose
-	logf = log --oneline --name-status --graph
-	logg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    add = add --verbose
+    logf = log --oneline --name-status --graph
+    logg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    logc = log --oneline --reverse -20
 
 [http]
-	sslVerify = false
+    sslVerify = false
 
 [include]
-	path = /wrk/.gitconfig
+    path = /wrk/.gitconfig
