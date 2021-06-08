@@ -1,14 +1,18 @@
 #!/bin/bash
 # encoding=utf-8
 
-# set -x
-# set -e
+set -x
+set -e
 
 BASE_DIR="$(cd "$(dirname "${BASE_SOURCE[0]}")" 2>&1 && pwd)"
 
 confirm() {
     while true; do
-        read yn
+        if [[ -n "$COMFIRM" ]]; then
+            yn="$COMFIRM"
+        else
+            read -r yn
+        fi
         case $yn in
         "y" | "Y")
             $*
