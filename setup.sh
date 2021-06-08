@@ -30,7 +30,8 @@ confirm() {
 }
 
 authorized_keys() {
-    python -c "from __future__ import print_function;import json;[print(o['key']) for o in json.loads('''$(curl https://api.github.com/users/chongiofai/keys)''')]" > $HOME/.ssh/authorized_keys
+    mkdir -p $HOME/.ssh
+    python -c "from __future__ import print_function;import json;[print(o['key']) for o in json.loads('''$(curl https://api.github.com/users/chongiofai/keys)''')]" >> $HOME/.ssh/authorized_keys
 }
 
 bak() {
