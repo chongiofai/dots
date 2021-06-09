@@ -42,6 +42,12 @@ function! InitVim()
     set viminfo+=n~/.vim/viminfo
 endfunction
 
+function! PlugDownload()
+    if !filereadable(expand('~/.vim/autoload/plug.vim'))
+        exec '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    endif
+endfunction
+command! PlugDownload call PlugDownload()
 
 " general
 "
@@ -50,6 +56,9 @@ set nocompatible
 " vnoremap , ;
 nnoremap \ ;
 vnoremap \ ;
+set timeout
+set timeoutlen=3000
+set ttimeoutlen=100
 let mapleader=';'
 call InitVim()
 syntax on
@@ -81,10 +90,7 @@ set foldmethod=indent
 
 " plugin
 "
-if !filereadable(expand('~/.vim/autoload/plug.vim'))
-    " exec '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    exec '!git clone https://github.com/junegunn/vim-plug/master/plug.vim.git ~/.vim/autoload/vim-plug'
-else
+if filereadable(expand('~/.vim/autoload/plug.vim'))
     call plug#begin(expand('~/.vim/plugins'))
     Plug 'flazz/vim-colorschemes'
     Plug 'itchyny/vim-gitbranch'
@@ -100,15 +106,16 @@ else
     Plug 'mileszs/ack.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
-    Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
-    " Plug 'Chiel92/vim-autoformat'  " ALEFix
     Plug 'dense-analysis/ale'
+    Plug 'jiangmiao/auto-pairs'
     if has("python3")
         Plug 'Valloric/YouCompleteMe', {'do': '/bin/env python3 ./install.py --all'}
+        Plug 'SirVer/ultisnips'
     endif
     Plug 'editorconfig/editorconfig-vim'
     Plug 'scrooloose/nerdcommenter'
+    " TODO: vim-go
     call plug#end()
 endif
 
@@ -211,9 +218,9 @@ if ExistPlugin('ale')
         let l:all_errors=l:counts.error + l:counts.style_error
         let l:all_non_errors=l:counts.total - l:all_errors
         return printf(
-                    \   '[%dw%de]',
-                    \   all_non_errors,
-                    \   all_errors
+                    \   '[%de%dw]',
+                    \   all_errors,
+                    \   all_non_errors
                     \)
     endfunction
 
@@ -249,8 +256,11 @@ if ExistPlugin('ale')
     let b:ale_fixers={
                 \ 'sh': ['shfmt'],
                 \ 'go': ['gofmt'],
+                \ 'json': ['jq'],
                 \ 'python': ['trim_whitespace', 'remove_trailing_lines', 'black'],
                 \ }
+    " shell
+    let g:ale_sh_shfmt_options="-i 4"
     " python
     let g:ale_python_flake8_options="--ignore=E501,W503"
     let g:ale_python_mypy_options="--ignore-missing-imports"

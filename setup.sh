@@ -78,11 +78,11 @@ tmux-plugin() {
 vim_plugin() {
     PLUGVIM_PATH="$HOME/.vim/autoload/plug.vim"
     if [[ -f "$PLUGVIM_PATH" ]]; then
-        echo "update vim plugin[yn]"
-        confirm vim +PlugUpdate
+        echo "update vim plugins[yn]"
+        confirm vim +PlugUpdate '+qa!'
     else
-        echo "download plug-vim"
-        confirm curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && vim +PlugInstall!
+        echo "install vim plugins[yn]"
+        confirm vim +PlugDownload +PlugInstall '+qa!'
     fi
 }
 
