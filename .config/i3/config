@@ -29,8 +29,8 @@ set $mb7 button7  # scroll wheel left
 # output
 
 ## define output
-set $op0 primary
-set $op1 nonprimary
+set $op0 eDP-1
+set $op1 HDMI-1
 
 ## foucs
 bindsym $mod+minus focus output $op0
@@ -68,8 +68,6 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
-# set $ws11 "11"
-# set $ws12 "12"
 
 ## switch workspace
 bindsym $mod+$recent workspace back_and_forth
@@ -87,8 +85,6 @@ bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
-# bindsym $mod+minus workspace number $ws11
-# bindsym $mod+equal workspace number $ws12
 
 ## move container to workspace
 bindsym $mod+$ctrl+$next move container to workspace next
@@ -103,8 +99,6 @@ bindsym $mod+$ctrl+7 move container to workspace number $ws7
 bindsym $mod+$ctrl+8 move container to workspace number $ws8
 bindsym $mod+$ctrl+9 move container to workspace number $ws9
 bindsym $mod+$ctrl+0 move container to workspace number $ws10
-# bindsym $mod+$ctrl+minus move container to workspace number $ws11
-# bindsym $mod+$ctrl+equal move container to workspace number $ws12
 ## move window to workspace
 # bindsym $mod+$ctrl+$next move window to workspace next
 # bindsym $mod+$ctrl+$previous move window to workspace prev
@@ -118,8 +112,6 @@ bindsym $mod+$ctrl+0 move container to workspace number $ws10
 # bindsym $mod+$ctrl+8 move window to workspace number $ws8
 # bindsym $mod+$ctrl+9 move window to workspace number $ws9
 # bindsym $mod+$ctrl+10 move window to workspace number $ws10
-# bindsym $mod+$ctrl+minus move window to workspace number $ws11
-# bindsym $mod+$ctrl+equal move window to workspace number $ws12
 
 # container
 
@@ -276,7 +268,6 @@ bindsym $mod+$shift+$esc exec "i3-nagbar -t warning -m 'You pressed the exit sho
 
 ## background
 exec --no-startup-id sh ~/.fehbg
-# exec --no-startup-id feh --no-fehbg -bg-fill '~/Pictures/wallpaper.jpg'
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id ibus-daemon --xim -d -r
