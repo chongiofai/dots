@@ -31,7 +31,7 @@ confirm() {
 
 authorized_keys() {
     mkdir -p $HOME/.ssh
-    python -c "from __future__ import print_function;import json;[print(o['key']) for o in json.loads('''$(curl https://api.github.com/users/chongiofai/keys)''')]" >> $HOME/.ssh/authorized_keys
+    python -c "from __future__ import print_function;import json;[print(o['key']) for o in json.loads('''$(curl https://api.github.com/users/chongiofai/keys)''')]" >>$HOME/.ssh/authorized_keys
 }
 
 bak() {
@@ -122,11 +122,12 @@ console-fonts() {
 }
 
 rm -rf $BASE_DIR/tmp
-[ -z $* ] && echo "setup.sh [bak|dots|fzf|pyenv|vim-plugin|tmux-plugin|fonts|consolefonts|xrdb]"
+HELP_MSG="setup.sh [authorized_keys|bak|dots|fzf|pyenv|vim-plugin|tmux-plugin|fonts|consolefonts|xrdb]"
+[ -z "$*" ] && echo "$HELP_MSG"
 for cmd in $*; do
     case $cmd in
     "help")
-        echo "setup.sh [bak|dots|fzf|pyenv|vim-plugin|tmux-plugin|fonts|consolefonts|xrdb]"
+        echo "$HELP_MSG"
         ;;
     *)
         $cmd
