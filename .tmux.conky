@@ -1,10 +1,18 @@
 # encoding=utf-8
 
 conky.config = {
+    total_run_times = 1,
+
     out_to_x = false,
     out_to_console = true,
-    total_run_times = 1,
+
     use_xft = true,
-    font = "JetBrains Mono:style=Regular:size=14",
+    override_utf8_locale = false,
+    short_units = true,
+    if_up_strictness = 'address',
+
 };
-conky.text = [[${cpu}%|${memeasyfree}|${addrs eth0}|${addrs wlan0}|${kernel}]]
+
+conky.text = [[
+${if_up eth0}${addr eth0}|${else}${endif}${if_up wlan0}${addr wlan0}|${else}${endif}${processes}P, ${threads}T|${diskio}|${cpu}%|$memperc%(${mem})|${kernel}
+]]

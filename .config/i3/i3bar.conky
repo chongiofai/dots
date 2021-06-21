@@ -1,0 +1,28 @@
+# encodig=utf-8
+
+conky.config = {
+    total_run_times = 0,
+    update_interval = 1,
+
+    out_to_x = false,
+    out_to_console = true,
+
+    use_xft = true,
+    override_utf8_locale = false,
+    short_units = true,
+    if_up_strictness = 'address',
+};
+
+conky.text = [[
+[
+    ${if_up eth0}{"full_text": "${addr eth0}", "color": ""},${endif}
+    ${if_up wlan0}{"full_text": "${addr wlan0}(${wireless_essid wlan0}${wireless_link_qual_perc wlan0}%)", "color": ${if_match ${wireless_link_qual_perc wlan0}<20}"\#ec5f67"${else}${if_match ${wireless_link_qual_perc wlan0}<50}"\#fec254"${else}""${endif}${endif}},${endif}
+    ${if_up wwan0}{"full_text": "${addr wwan0}(${wireless_essid wwan0}${wireless_link_qual_perc wwan0}%)", "color": ${if_match ${wireless_link_qual_perc wwan0}<20}"\#ec5f67"${else}${if_match ${wireless_link_qual_perc wwan0}<50}"\#fec254"${else}""${endif}${endif}},${endif}
+    {"full_text": "${processes}P ${threads}T", "color": ""},
+    {"full_text": "IO $diskio", "color": ""},
+    {"full_text": "RAM $memperc%($mem)", "color": ${if_match ${memperc}>80}"\#ec5f67"${else}${if_match ${memperc}>50}"\#fec254"${else}""${endif}${endif}},
+    {"full_text": "CPU ${cpu cpu0}%", "color": ${if_match ${cpu cpu0}>80}"\#ec5f67"${else}${if_match ${cpu cpu0}>50}"\#fec254"${else}""${endif}${endif}},
+    {"full_text": "${time %Y-%m-%d %H:%M:%S %a}", "color": ""},
+    {"full_text": "${battery_short}", "color": ${if_match ${battery_percent}<20}"\#ec5f67"${else}${if_match ${battery_percent}<50}"\#fec254"${else}""${endif}${endif}}
+],
+]];

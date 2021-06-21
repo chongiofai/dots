@@ -36,10 +36,10 @@ ethernet eth0 {
 battery 0 {
         format = "%status %percentage"
         format_down = ""
-        status_unk = "🔋"
-        status_chr = "⚡"
-        status_bat = "🔌"
-        status_full = "💡"
+        status_unk = ""
+        status_chr = "🔌"
+        status_bat = "🔋"
+        status_full = "⚡"
         threshold_type = percentage
         last_full_capacity = true
         integer_battery_capacity = true

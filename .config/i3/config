@@ -87,31 +87,31 @@ bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
 ## move container to workspace
-bindsym $mod+$ctrl+$next move container to workspace next
-bindsym $mod+$ctrl+$previous move container to workspace prev
-bindsym $mod+$ctrl+1 move container to workspace number $ws1
-bindsym $mod+$ctrl+2 move container to workspace number $ws2
-bindsym $mod+$ctrl+3 move container to workspace number $ws3
-bindsym $mod+$ctrl+4 move container to workspace number $ws4
-bindsym $mod+$ctrl+5 move container to workspace number $ws5
-bindsym $mod+$ctrl+6 move container to workspace number $ws6
-bindsym $mod+$ctrl+7 move container to workspace number $ws7
-bindsym $mod+$ctrl+8 move container to workspace number $ws8
-bindsym $mod+$ctrl+9 move container to workspace number $ws9
-bindsym $mod+$ctrl+0 move container to workspace number $ws10
+bindsym $mod+$shift+$next move container to workspace next
+bindsym $mod+$shift+$previous move container to workspace prev
+bindsym $mod+$shift+1 move container to workspace number $ws1
+bindsym $mod+$shift+2 move container to workspace number $ws2
+bindsym $mod+$shift+3 move container to workspace number $ws3
+bindsym $mod+$shift+4 move container to workspace number $ws4
+bindsym $mod+$shift+5 move container to workspace number $ws5
+bindsym $mod+$shift+6 move container to workspace number $ws6
+bindsym $mod+$shift+7 move container to workspace number $ws7
+bindsym $mod+$shift+8 move container to workspace number $ws8
+bindsym $mod+$shift+9 move container to workspace number $ws9
+bindsym $mod+$shift+0 move container to workspace number $ws10
 ## move window to workspace
-# bindsym $mod+$ctrl+$next move window to workspace next
-# bindsym $mod+$ctrl+$previous move window to workspace prev
-# bindsym $mod+$ctrl+1 move window to workspace number $ws1
-# bindsym $mod+$ctrl+2 move window to workspace number $ws2
-# bindsym $mod+$ctrl+3 move window to workspace number $ws3
-# bindsym $mod+$ctrl+4 move window to workspace number $ws4
-# bindsym $mod+$ctrl+5 move window to workspace number $ws5
-# bindsym $mod+$ctrl+6 move window to workspace number $ws6
-# bindsym $mod+$ctrl+7 move window to workspace number $ws7
-# bindsym $mod+$ctrl+8 move window to workspace number $ws8
-# bindsym $mod+$ctrl+9 move window to workspace number $ws9
-# bindsym $mod+$ctrl+10 move window to workspace number $ws10
+# bindsym $mod+$shift+$next move window to workspace next
+# bindsym $mod+$shift+$previous move window to workspace prev
+# bindsym $mod+$shift+1 move window to workspace number $ws1
+# bindsym $mod+$shift+2 move window to workspace number $ws2
+# bindsym $mod+$shift+3 move window to workspace number $ws3
+# bindsym $mod+$shift+4 move window to workspace number $ws4
+# bindsym $mod+$shift+5 move window to workspace number $ws5
+# bindsym $mod+$shift+6 move window to workspace number $ws6
+# bindsym $mod+$shift+7 move window to workspace number $ws7
+# bindsym $mod+$shift+8 move window to workspace number $ws8
+# bindsym $mod+$shift+9 move window to workspace number $ws9
+# bindsym $mod+$shift+10 move window to workspace number $ws10
 
 # container
 
@@ -119,7 +119,7 @@ bindsym $mod+$ctrl+0 move container to workspace number $ws10
 bindsym $mod+a focus parent
 
 ## child
-bindsym $mod+Shift+a focus child
+bindsym $mod+$shift+a focus child
 
 ## split horizontal
 bindsym $mod+v split h
@@ -152,7 +152,7 @@ bindsym $mod+$ctrl+Up move up
 bindsym $mod+$ctrl+Right move right
 
 ## kill focused window
-bindsym $mod+$shift+q kill
+bindsym $mod+$ctrl+w kill
 bindsym $alt+F4 kill
 
 # mode
@@ -176,8 +176,8 @@ bindsym $mod+s border toggle
 ## mode sticky
 floating_modifier $mod
 bindsym $mod+semicolon floating toggle
-bindsym $mod+$shift+semicolon focus mode_toggle
-bindsym $mod+apostrophe sticky toggle
+bindsym $mod+$shift+semicolon sticky toggle
+bindsym $mod+apostrophe focus mode_toggle
 
 ## mode resize
 mode "resize" {
@@ -233,7 +233,8 @@ bar {
     position bottom
     # mode hide
     modifier none
-    status_command i3status
+    # status_command i3status -c ~/.config/i3status/config
+    status_command echo '{"version":1}[' && conky -c ~/.config/i3/i3bar.conky
     separator_symbol "|"
     font pango:JetBrains Mono, WenQuanYi Micro Hei Mono, Symboa
     colors {
@@ -251,15 +252,15 @@ bindsym $alt+space bar mode toggle
 
 # control
 
-## lock
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-bindsym $mod+$esc exec i3lock -c '#000000'
-
 ## reload i3
 bindsym $mod+r reload
 
 ## restart i3
 bindsym $mod+$shift+r restart
+
+## lock
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+bindsym $mod+$esc exec i3lock -c '#000000'
 
 ## exit i3
 bindsym $mod+$shift+$esc exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
@@ -277,7 +278,6 @@ exec --no-startup-id pulseaudio --check && pulseaudio -D
 ## call
 
 ### terminal
-# bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+$enter exec rxvt-unicode
 
 ### menu
@@ -290,7 +290,6 @@ bindsym $mod+$tab exec rofi -show window
 
 ### screenshot
 bindsym Print exec --no-startup-id spectacle
-bindsym $shift+Print exec --no-startup-id spectacle -b
 bindsym $ctrl+Print exec --no-startup-id spectacle -r
 bindsym $shift+$ctrl+Print exec --no-startup-id spectacle -r -b -n
 

@@ -108,14 +108,14 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     Plug 'junegunn/fzf.vim'
     Plug 'honza/vim-snippets'
     Plug 'dense-analysis/ale'
-    Plug 'jiangmiao/auto-pairs'
+    " Plug 'jiangmiao/auto-pairs'
     if has("python3")
         Plug 'Valloric/YouCompleteMe', {'do': '/bin/env python3 ./install.py --all'}
         Plug 'SirVer/ultisnips'
     endif
     Plug 'editorconfig/editorconfig-vim'
     Plug 'scrooloose/nerdcommenter'
-    " TODO: vim-go
+    Plug 'fatih/vim-go'
     call plug#end()
 endif
 
@@ -262,7 +262,7 @@ if ExistPlugin('ale')
     " shell
     let g:ale_sh_shfmt_options="-i 4"
     " python
-    let g:ale_python_flake8_options="--ignore=E501,W503"
+    let g:ale_python_flake8_options="--ignore=E501,E126,W503"
     let g:ale_python_mypy_options="--ignore-missing-imports"
     let g:ale_python_black_options="--skip-string-normalization"
 
@@ -295,5 +295,5 @@ if ExistPlugin('YouCompleteMe')
 endif
 
 if ExistPlugin('nerdcommenter')
-    let g:NERDSpaceDelims = 1
+    " let g:NERDSpaceDelims = 1
 endif
