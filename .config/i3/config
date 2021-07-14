@@ -235,6 +235,8 @@ bar {
     modifier none
     # status_command i3status -c ~/.config/i3status/config
     status_command echo '{"version":1}[' && conky -c ~/.config/i3/i3bar.conky
+    tray_output primary
+    tray_padding 5
     separator_symbol "|"
     font pango:JetBrains Mono, WenQuanYi Micro Hei Mono, Symboa
     colors {
@@ -268,12 +270,15 @@ bindsym $mod+$shift+$esc exec "i3-nagbar -t warning -m 'You pressed the exit sho
 # application
 
 ## background
-exec --no-startup-id sh ~/.fehbg
-exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
-exec --no-startup-id ibus-daemon --xim -d -r
-
+exec_always feh --bg-scale $HOME/Pictures/wallpaper.jpg
 exec --no-startup-id pulseaudio --check && pulseaudio -D
+
+exec --no-startup-id ibus-daemon --xim -d -r
+exec --no-startup-id blueman-applet
+exec --no-startup-id nm-applet
+exec_always --no-startup-id pasystray --volume-max=100 -volume-inc=5 --notify=all
+# exec insync start
+
 
 ## call
 
@@ -289,17 +294,16 @@ bindsym $mod+d exec "rofi -modi drun,run -show drun"
 bindsym $mod+$tab exec rofi -show window
 
 ### screenshot
-bindsym Print exec --no-startup-id spectacle
-bindsym $ctrl+Print exec --no-startup-id spectacle -r
-bindsym $shift+$ctrl+Print exec --no-startup-id spectacle -r -b -n
+bindsym Print exec --no-startup-id spectacle --fullscreen
+bindsym $ctrl+Print exec --no-startup-id spectacle --region
 
 #### audio
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 
 #### screen
-# bindsym XF86MonBrightnessUp exec xbacklight -inc 20
-# bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 

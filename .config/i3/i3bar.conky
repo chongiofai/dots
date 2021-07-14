@@ -16,8 +16,8 @@ conky.config = {
 conky.text = [[
 [
     ${if_up eth0}{"full_text": "${addr eth0}", "color": ""},${endif}
-    ${if_up wlan0}{"full_text": "${addr wlan0}(${wireless_essid wlan0}${wireless_link_qual_perc wlan0}%)", "color": ${if_match ${wireless_link_qual_perc wlan0}<20}"\#ec5f67"${else}${if_match ${wireless_link_qual_perc wlan0}<50}"\#fec254"${else}""${endif}${endif}},${endif}
-    ${if_up wwan0}{"full_text": "${addr wwan0}(${wireless_essid wwan0}${wireless_link_qual_perc wwan0}%)", "color": ${if_match ${wireless_link_qual_perc wwan0}<20}"\#ec5f67"${else}${if_match ${wireless_link_qual_perc wwan0}<50}"\#fec254"${else}""${endif}${endif}},${endif}
+    ${if_up wlan0}{"full_text": "${addr wlan0}(${wireless_essid wlan0} ${wireless_link_qual_perc wlan0}%)", "color": ${if_match ${wireless_link_qual_perc wlan0}<20}"\#ec5f67"${else}${if_match ${wireless_link_qual_perc wlan0}<50}"\#fec254"${else}""${endif}${endif}},${endif}
+    ${if_up wwan0}{"full_text": "${addr wwan0}(${wireless_essid wwan0} ${wireless_link_qual_perc wwan0}%)", "color": ${if_match ${wireless_link_qual_perc wwan0}<20}"\#ec5f67"${else}${if_match ${wireless_link_qual_perc wwan0}<50}"\#fec254"${else}""${endif}${endif}},${endif}
     {"full_text": "${processes}P ${threads}T", "color": ""},
     {"full_text": "IO $diskio", "color": ""},
     {"full_text": "RAM $memperc%($mem)", "color": ${if_match ${memperc}>80}"\#ec5f67"${else}${if_match ${memperc}>50}"\#fec254"${else}""${endif}${endif}},

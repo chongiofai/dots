@@ -1,53 +1,48 @@
 ! ~/.Xresource
 
-! black
-! color0 color8
-! red
-! color1 color9
-! green
-! color2 color10
-! yellow
-! color3 color11
-! blue
-! color4 color12
-! magenta
-! color5 color13
-! cyan
-! color6 color14
-! white
-! color7 color15
+! | black | red  | green | yellow | blue | magenta | cyan | white |
+! | ----- | ---- | ----- | ------ | ---- | ------- | ---- | ----- |
+! | 0     | 1    | 2     | 3      | 4    | 5       | 6    | 7     |
+! | 8     | 9    | 10    | 11     | 12   | 13      | 14   | 15    |
 
 ! https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/Xresources/SpaceGray Eighties
-*.foreground:  #bdbaae
-*.background:  #222222
-*.cursorColor: #bbbbbb
-*.color0:      #15171c
-*.color8:      #555555
-*.color1:      #ec5f67
-*.color9:      #ff6973
-*.color2:      #81a764
-*.color10:     #93d493
-*.color3:      #fec254
-*.color11:     #ffd256
-*.color4:      #5486c0
-*.color12:     #4d84d1
-*.color5:      #bf83c1
-*.color13:     #ff55ff
-*.color6:      #57c2c1
-*.color14:     #83e9e4
-*.color7:      #efece7
-*.color15:     #ffffff
-*.colorBD:     #ffffff
+*.color0:         #15171c
+*.color8:         #555555
+*.color1:         #ec5f67
+*.color9:         #ff6973
+*.color2:         #81a764
+*.color10:        #93d493
+*.color3:         #fec254
+*.color11:        #ffd256
+*.color4:         #5486c0
+*.color12:        #4d84d1
+*.color5:         #bf83c1
+*.color13:        #ff55ff
+*.color6:         #57c2c1
+*.color14:        #83e9e4
+*.color7:         #efece7
+*.color15:        #ffffff
+*.foreground:     #bdbaae
+*.background:     #222222
 
-! xft
-*.font:      xft:JetBrains Mono:style=Regular:size=12, xft:WenQuanYi Micro Hei Mono, xft:Symbola
-*.boldFont:  xft:JetBrains Mono:style=Bold:size=12, xft:WenQuanYi Micro Hei Mono, xft:Symbola
+*.font:           xft:JetBrains Mono:style=Regular:size=12, xft:WenQuanYi Micro Hei Mono, xft:Symbola
+*.boldFont:       xft:JetBrains Mono:style=Bold:size=12, xft:WenQuanYi Micro Hei Mono, xft:Symbola
 
 ! URxvt
-URxvt.letterSpace:               1
 URxvt.scrollBar:                 false
+URxvt.saveLines:                 65535
+URxvt.letterSpace:               1
+URxvt.clipboard.autocopy:        true
+URxvt.underlineURLs:             true
+URxvt.urlLauncher:               /bin/firefox
+
 URxvt.perl-ext-common:           default,clipboard
-URxvt.keysym.Shift-Control-V :   eval:paste_clipboard
+URxvt.copyCommand:               xclip -i -selection clipboard
+URxvt.pasteCommand:              xclip -o -selection clipboard
+! URxvt.keysym.Shift-Control-C:    perl:clipboard:copy
+! URxvt.keysym.Shift-Control-V:    perl:clipboard:paste
 URxvt.keysym.Shift-Control-C:    eval:selection_to_clipboard
-URxvt.underlineURLs:    true
-! URxvt.urlLauncher:      uzbl-tabbed
+URxvt.keysym.Shift-Control-V:    eval:paste_clipboard
+URxvt.keysym.Control-equal:      font-size:increase
+URxvt.keysym.Control-minus:      font-size:decrease
+URxvt.keysym.Control-backslash:  font-size:reset
