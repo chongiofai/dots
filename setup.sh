@@ -53,9 +53,33 @@ dots() {
         --exclude=".gitignore" \
         --exclude="README.md" \
         --exclude="setup.sh" \
+        --exclude=".config" \
+        --exclude=".local" \
         "$BASE_DIR/" "$HOME/"
     echo "rsync[yn]"
     confirm rsync -rac --backup --suffix=".bak" -i -vv \
+        --exclude-from="$BASE_DIR/.gitignore" \
+        --exclude=".git" \
+        --exclude=".gitignore" \
+        --exclude="README.md" \
+        --exclude="setup.sh" \
+        --exclude=".config" \
+        --exclude=".local" \
+        "$BASE_DIR/" "$HOME/"
+}
+
+i3() {
+    rsync -n -rac -i -v \
+        --include=".config" \
+        --exclude-from="$BASE_DIR/.gitignore" \
+        --exclude=".git" \
+        --exclude=".gitignore" \
+        --exclude="README.md" \
+        --exclude="setup.sh" \
+        "$BASE_DIR/" "$HOME/"
+    echo "rsync[yn]"
+    confirm rsync -rac --backup --suffix=".bak" -i -vv \
+        --include=".config" \
         --exclude-from="$BASE_DIR/.gitignore" \
         --exclude=".git" \
         --exclude=".gitignore" \
@@ -122,7 +146,7 @@ console-fonts() {
 }
 
 rm -rf $BASE_DIR/tmp
-HELP_MSG="setup.sh [authorized_keys|bak|dots|fzf|pyenv|vim-plugin|tmux-plugin|fonts|consolefonts|xrdb]"
+HELP_MSG="setup.sh [authorized_keys|bak|dots|fzf|pyenv|vim-plugin|tmux-plugin|fonts|consolefonts|xrdb|i3]"
 [ -z "$*" ] && echo "$HELP_MSG"
 for cmd in $*; do
     case $cmd in
