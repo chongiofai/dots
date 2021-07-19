@@ -8,13 +8,12 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size = 4
 
-[*.{html,css,js,json,yaml,yml,less,md}]
+[*.{html,css,js,json,yaml,yml,less,md,toml}]
 indent_style = space
 indent_size = 2
 
 [*.{go}]
 indent_stype = tab
-indent_size = 4
 
-[{Makefile,.go}]
+[Makefile]
 indent_style = tab
