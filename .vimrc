@@ -2,6 +2,7 @@
 "
 " MAINTAINER: c1f<chongiofai@gmail.com>
 
+
 "
 " function
 "
@@ -28,7 +29,7 @@ function! PlugDownload()
     endif
 endfunction
 
-function! ExistPlugin(plugin)
+function! PlugExist(plugin)
     if isdirectory(expand("~/.vim/plugins/" . a:plugin))
         return 1
     endif
@@ -51,15 +52,17 @@ function! ToggleQuickFixList()
     endif
 endfunction
 
-function! ToggleLargeFileMode()
+function! LFMode()
+    " TODO Large File Mode
     syntax off
+    let g:ale_enabled=0
 endfunction
 
-
 command! PlugDownload call PlugDownload()
+command! PlugExist call PlugExist()
 command! ToggleLocationList call ToggleLocationList()
 command! ToggleQuickFixList call ToggleQuickFixList()
-command! ToggleLargeFileMode call ToggleLargeFileMode()
+command! LFMode call LFMode()
 
 "
 " general
@@ -68,32 +71,31 @@ call HandleVimFiles()
 autocmd QuitPre * if empty(&bt) | lclose | endif
 autocmd QuitPre * if empty(&bt) | cclose | endif
 set nocompatible
-" nnoremap , ;
-" vnoremap , ;
-nnoremap \ ;
-vnoremap \ ;
-set timeout
-set timeoutlen=3000
-set ttimeoutlen=100
+noremap \ ;
 let mapleader=';'
+" set timeout
+" set timeoutlen=3000
+" set ttimeoutlen=100
 syntax on
 set undofile
 set mouse=i
 set t_Co=256
 set encoding=utf-8
+set nowrap
 set autoindent
 set tabstop=4
 set linespace=0
 set list
-" set listchars=tab:»\ ,trail:¨
 set listchars=tab:⇒\ ,trail:→
-set showmatch
+" set listchars=tab:»\ ,trail:¨
+highlight NonText ctermfg=grey
+highlight SpecialKey ctermfg=grey
+set number
 set cursorline
 set cursorcolumn
-set nowrap
-set number
 set showcmd
 set showmode
+set showmatch
 set ruler
 set rulerformat=%=%V\ 0x%B\ %c,%l/%L\ %P
 set laststatus=2
@@ -124,7 +126,7 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     Plug 'junegunn/fzf.vim'
     " Plug 'honza/vim-snippets'
     Plug 'dense-analysis/ale'
-    " Plug 'jiangmiao/auto-pairs'
+    Plug 'jiangmiao/auto-pairs'
     if has("python3")
         Plug 'Valloric/YouCompleteMe', {'do': 'python3 ./install.py --all'}
         " Plug 'SirVer/ultisnips'
@@ -135,11 +137,11 @@ if filereadable(expand('~/.vim/autoload/plug.vim'))
     call plug#end()
 endif
 
-if ExistPlugin('vim-colorschemes')
+if PlugExist('vim-colorschemes')
     colorscheme synic
 endif
 
-if ExistPlugin('vim-gitbranch')
+if PlugExist('vim-gitbranch')
     function! GitBranchStatus() abort
         let l:branch=gitbranch#name()
         return l:branch == '' ? '' : '(' . l:branch . ')'
@@ -150,26 +152,26 @@ else
     endfunction
 endif
 
-if ExistPlugin('easytags')
+if PlugExist('easytags')
     let g:easytags_cmd='ctags-universal'
     let g:easytags_file='~/.vim/tags'
 endif
 
-if ExistPlugin('tagbar')
+if PlugExist('tagbar')
     nnoremap <Leader>tb :TagbarToggle<CR>
 endif
 
-if ExistPlugin('nerdtree')
+if PlugExist('nerdtree')
     nnoremap <Leader>ft :NERDTreeToggle<CR>
     let g:undotree_SetFocusWhenToggle=1
 endif
 
-if ExistPlugin('undotree')
+if PlugExist('undotree')
     nnoremap <Leader>ut :UndotreeToggle<CR>
     let g:undotree_SetFocusWhenToggle=1
 endif
 
-if ExistPlugin('vim-bookmarks')
+if PlugExist('vim-bookmarks')
     let g:bookmark_no_default_key_mappings = 1
     nmap mm :BookmarkToggle<CR>
     nmap mi :BookmarkAnnotate<CR>
@@ -195,7 +197,7 @@ if ExistPlugin('vim-bookmarks')
     let g:bookmark_highlight_lines=0
 endif
 
-if ExistPlugin('ack.vim')
+if PlugExist('ack.vim')
     if executable('rg')
         let g:ackprg='rg --vimgrep --sort path'
     elseif executable('ag')
@@ -205,24 +207,24 @@ if ExistPlugin('ack.vim')
     nnoremap <Leader>a :Ack!<Space>
 endif
 
-if ExistPlugin('fzf.vim')
+if PlugExist('fzf.vim')
     let g:fzf_tags_command='ctags-universal -R'
     " let g:fzf_command_prefix='Fzf'
     nnoremap <Leader>m :Commands<CR>
 endif
 
-if ExistPlugin('ultisnips')
+if PlugExist('ultisnips')
     let g:UltiSnipsExpandTrigger="<Leader>i"
     let g:UltiSnipsJumpForwardTrigger="<Leader>n"
     let g:UltiSnipsJumpBackwardTrigger="<Leader>p"
     let g:UltiSnipsEditSplit="vertical"
 endif
 
-if ExistPlugin('nerdcommenter')
+if PlugExist('nerdcommenter')
     " let g:NERDSpaceDelims = 1
 endif
 
-if ExistPlugin('ale')
+if PlugExist('ale')
     function! LinterStatus() abort
         let l:counts=ale#statusline#Count(bufnr(''))
         let l:all_errors=l:counts.error + l:counts.style_error
@@ -294,11 +296,15 @@ else
     endfunction
 endif
 
-if ExistPlugin('YouCompleteMe')
+if PlugExist('YouCompleteMe')
     let g:ycm_confirm_extra_conf = 0
     " XXX: ycm python3 execute command
     let g:ycm_server_python_interpreter = '/usr/bin/python3.9'
 endif
 
-if ExistPlugin('vim-go')
+if PlugExist('auto-pair')
+    " g:AutoPairsShortcutToggle = ''
+endif
+
+if PlugExist('vim-go')
 endif
