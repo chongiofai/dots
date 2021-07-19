@@ -75,7 +75,7 @@ tmux-plugin() {
     fi
 }
 
-vim_plugin() {
+vim-plugin() {
     PLUGVIM_PATH="$HOME/.vim/autoload/plug.vim"
     if [[ -f "$PLUGVIM_PATH" ]]; then
         echo "update vim plugins[yn]"
